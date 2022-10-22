@@ -38,6 +38,10 @@ contract PointyToken is IPoint, ERC20("Pointy", "POINTY"), ActionStorage, Claima
 		super._mint(mintTo, available);
 	}
 
+	function enableClaiming() public onlyRole(AKX_OPERATOR_ROLE) {
+		canStartClaiming = true;
+	}
+
 	function claim() public override virtual returns(bool) {
 		if(canStartClaiming == false) {
 			revert("cannot start claiming for AKX yet");
